@@ -6,6 +6,7 @@ import { walletClientState } from "@/components/shared/state";
 import { useConfig } from "./useConfig";
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import { QueryClient, setupBankExtension } from "@cosmjs/stargate";
+import { getSigningCosmwasmClient } from 'osmojs'
 
 export const useKeplrInterface = (
   type: WalletClientType,
@@ -28,10 +29,7 @@ export const useKeplrInterface = (
 
         const accounts = await offlineSigner.getAccounts();
 
-        const client = await SigningCosmWasmClient.connectWithSigner(
-          chainInfo.rpc,
-          offlineSigner
-        );
+        const client = await getSigningCosmwasmClient({ rpcEndpoint: chainInfo.rpc, signer: offlineSigner })
 
         const address = accounts[0].address;
 

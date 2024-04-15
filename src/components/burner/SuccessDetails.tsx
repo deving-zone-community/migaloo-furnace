@@ -36,7 +36,7 @@ const SuccessDetails = ({ whaleBurned }: SuccessDetailsProps) => {
           />
           <SuccessDetailField
             label="Current ashLAB Balance"
-            value={(ashBalance + whaleBurned).toFixed(3)}
+            value={(ashBalance).toFixed(3)}
           />
         </VStack>
       </Center>

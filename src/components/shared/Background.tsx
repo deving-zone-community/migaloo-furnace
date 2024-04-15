@@ -6,38 +6,29 @@ interface BackgroundProps {
 
 const Background = ({ children }: BackgroundProps) => {
   return (
-    <div
-      style={{
-        backgroundColor: "black",
-        minHeight: "100%",
-        minWidth: "100%",
-        width: "100%",
-        height: "auto",
-        position: "fixed",
-        top: 0,
-        left: 0,
-      }}
-    >
+    <>
       <div
         style={{
           backgroundImage: `url(images/bg.gif)`,
-          backgroundColor: "black",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: "0.8",
-          minHeight: "100%",
-          minWidth: "100%",
-          width: "100%",
-          height: "auto",
-          position: "fixed",
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'auto 100%',
+          backgroundColor: "#172113",
+          height: '100vh',
+          width: '100vw', 
+          position: 'fixed',
           top: 0,
           left: 0,
+          zIndex: -1,
         }}
-      >
+      />
+
+      <div style={{ position: 'relative', zIndex: 1 }}>
         {children}
       </div>
-    </div>
-  );
+    </>
+
+  )
 };
 
 export default Background;

@@ -109,11 +109,8 @@ export class CosmWasmWalletClient extends WalletClient {
 
     const txBytes = tx_3.TxRaw.encode(txRaw).finish();
 
-    try {
-      const result = await this.client.broadcastTx(txBytes);
-    } catch (e) {
-      console.log(e)
-    } 
+    
+    const result = await this.client.broadcastTx(txBytes);
 
     return {
       logs: stargate_1.logs.parseRawLog(result.rawLog),

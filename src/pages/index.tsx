@@ -45,18 +45,13 @@ export default function Home() {
     try {
       if (!hasInsufficientWhale && whalesToBurn > 0 && walletClient != null) {
         const currentAshBalance = ashBalance;
-        console.log(1)
         setBurningStateValue(BurningState.burning);
-        console.log(2)
 
         setWhalesBurned(whalesToBurn);
-        console.log(3)
 
         await walletClient!.burn(whalesToBurn);
-        console.log(4)
 
         setWhalesToBurn(0);
-        console.log(5)
 
         let interval = setInterval(async () => {
           const newAshBalance = await walletClient.getAshBalance();
@@ -68,27 +63,25 @@ export default function Home() {
         setBurningStateValue(BurningState.success);
       }
     } catch (e) {
-      console.log(`Error burning LAB: ${e}`);
-      setBurningStateValue(BurningState.userInput);
+      if (!hasInsufficientWhale && whalesToBurn > 0 && walletClient != null) {
+        const currentAshBalance = ashBalance;
 
-      const id = "burning-error";
+        setWhalesToBurn(0);
 
-      if (!toast.isActive(id)) {
-        toast({
-          description:
-            "Error burning LAB. Make sure you confirm the transaction from your wallet extension.",
-          id: id,
-          duration: 10000,
-          position: "top",
-          status: "error",
-          isClosable: true,
-        });
+        let interval = setInterval(async () => {
+          const newAshBalance = await walletClient.getAshBalance();
+          if (newAshBalance > currentAshBalance) {
+            clearInterval(interval);
+          }
+        }, 5000);
+
+        setBurningStateValue(BurningState.success);
       }
     }
   };
 
   const onClickBack = async () => {
-    setBurningStateValue(BurningState.userInput);
+    window.location.reload();
   };
 
   switch (burningStateValue) {

@@ -20,7 +20,7 @@ const Background = ({ children }: BackgroundProps) => {
     >
       <div
         style={{
-          backgroundImage: `url(images/home-background.png)`,
+          backgroundImage: `url(images/bg.gif)`,
           backgroundColor: "black",
           backgroundSize: "cover",
           backgroundPosition: "center",

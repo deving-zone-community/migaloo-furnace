@@ -87,7 +87,7 @@ const WalletInfo = () => {
 
       if (
         typeof furnaceContractAddress !== "string" ||
-        !furnaceContractAddress.startsWith("migaloo1")
+        !furnaceContractAddress.startsWith("osmo1")
       ) {
         throw new Error("furnace_contract_address is incorrectly formatted");
       }
@@ -118,7 +118,7 @@ const WalletInfo = () => {
         fontFamily={`'Lato', sans-serif`}
         padding={2}
       >
-        {`${balance.toFixed(3)} WHALE`}
+        {`${balance.toFixed(3)} LAB`}
       </Text>
       <HStack>
         <Box paddingLeft={2}>

@@ -14,8 +14,8 @@ const BurnForm = ({ handleChange, hasInsufficientWhale }: BurnFormProps) => {
     <VStack>
       <BurnInput
         label="You burn"
-        tokenLabel="WHALE"
-        tokenIcon="icons/whale-icon.svg"
+        tokenLabel="LAB"
+        tokenIcon="icons/fuel-icon.png"
         isReadOnly={false}
         onChange={(valueAsString: string, valueAsNumber: number) => {
           setBurnValueAsString(valueAsString);
@@ -30,7 +30,7 @@ const BurnForm = ({ handleChange, hasInsufficientWhale }: BurnFormProps) => {
       />
       <BurnInput
         label="You get"
-        tokenLabel="ASH"
+        tokenLabel="ashLAB"
         tokenIcon="icons/ash-icon.svg"
         isReadOnly={true}
         value={burnValueAsString}

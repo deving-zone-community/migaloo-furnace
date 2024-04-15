@@ -35,8 +35,8 @@ export const useKeplrInterface = (
 
         const address = accounts[0].address;
 
-        if (address == undefined || !address.startsWith("migaloo")) {
-          throw new Error("Failed to get migaloo address from wallet");
+        if (address == undefined || !address.startsWith("osmo")) {
+          throw new Error("Failed to get osmo address from wallet");
         }
 
         const tendermintClient = await Tendermint34Client.connect(

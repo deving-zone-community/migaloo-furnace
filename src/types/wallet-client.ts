@@ -1,7 +1,7 @@
 import { uwhalePerWhale } from "@/components/shared/constants";
-import { ExecuteResult, SigningCosmWasmClient,  } from "@cosmjs/cosmwasm-stargate";
-import {  BankExtension, coins, GasPrice } from "@cosmjs/stargate";
-import {LCDClient, MsgExecuteContract } from "@terra-money/feather.js";
+import { ExecuteResult, SigningCosmWasmClient, } from "@cosmjs/cosmwasm-stargate";
+import { BankExtension, coins, GasPrice } from "@cosmjs/stargate";
+import { LCDClient, MsgExecuteContract } from "@terra-money/feather.js";
 import { ConnectedWallet, TxResult } from "@terra-money/wallet-provider";
 import { ChainInfo } from "@keplr-wallet/types";
 const tx_3 = require("cosmjs-types/cosmos/tx/v1beta1/tx");
@@ -13,7 +13,7 @@ export enum WalletClientType {
   terrastation = 'Terra Station',
   keplr = 'Keplr',
   cosmostation = 'Cosmostation',
-  leap = 'Leap', 
+  leap = 'Leap',
 }
 
 export abstract class WalletClient {
@@ -22,15 +22,15 @@ export abstract class WalletClient {
   public abstract furnaceContractAddress: string;
   public abstract chainInfo: ChainInfo;
 
-  public get ashDenom() {return `factory/${this.furnaceContractAddress}/ash`};
+  public get ashDenom() { return `factory/osmo1svj5kd8kzj7xxtrd6ftjk0856ffpyj4egz7f9pd9dge5wr4kwansmefq07/lab.ash` };
 
   abstract getBalance(denom: String): Promise<number>
 
-  public async getWhaleBalance(): Promise<number> {
-    const uwhaleBalance = await this.getBalance("uwhale");
-    return uwhaleBalance / uwhalePerWhale;
-   }
-  
+  public async getFuelBalance(): Promise<number> {
+    const ufuelBalance = await this.getBalance("factory/osmo17fel472lgzs87ekt9dvk0zqyh5gl80sqp4sk4n/LAB");
+    return ufuelBalance / uwhalePerWhale;
+  }
+
   public async getAshBalance(): Promise<number> {
     const minimalDenomAsh = await this.getBalance(this.ashDenom);
 
@@ -54,14 +54,14 @@ export abstract class WalletClient {
 
 export class CosmWasmWalletClient extends WalletClient {
   constructor(public client: SigningCosmWasmClient, public bankExtension: BankExtension, public type: WalletClientType, public address: string, public chainInfo: ChainInfo, public furnaceContractAddress: string) {
-    super();    
+    super();
   }
 
   public getBalance = async (denom: string) => {
     try {
       const balance = await this.client.getBalance(this.address, denom);
       return Number.parseFloat(balance.amount);
-    } catch(e) {
+    } catch (e) {
       console.log(`Error getting ${denom} balance: ${e}`);
       return 0;
     }
@@ -74,51 +74,55 @@ export class CosmWasmWalletClient extends WalletClient {
   public async burn(
     amount: number
   ) {
-  // Using this.client.execute results in a TypeError originating in the cosmwasm-stargate code
-  // when it tries to get and then add the property chainId to the CosmWasmClient to construct
-  // the signer data. Passing in the signer data directly bypasses this error. 
-  
-  const funds = coins(amount * uwhalePerWhale, "uwhale");
+    // Using this.client.execute results in a TypeError originating in the cosmwasm-stargate code
+    // when it tries to get and then add the property chainId to the CosmWasmClient to construct
+    // the signer data. Passing in the signer data directly bypasses this error. 
 
-  const burnMsg = { burn: {} };
+    const funds = coins(amount * uwhalePerWhale, "factory/osmo17fel472lgzs87ekt9dvk0zqyh5gl80sqp4sk4n/LAB");
 
-  const storeCodeMsg = {
+    const burnMsg = { burn: {} };
+    const storeCodeMsg = {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: tx_4.MsgExecuteContract.fromPartial({
-          sender: this.address,
-          contract: this.furnaceContractAddress,
-          msg: (0, encoding_1.toUtf8)(JSON.stringify(burnMsg)),
-          funds: funds,
+        sender: this.address,
+        contract: this.furnaceContractAddress,
+        msg: (0, encoding_1.toUtf8)(JSON.stringify(burnMsg)),
+        funds: funds,
       })
     }
 
     const gasEstimation = await this.client.simulate(this.address, [storeCodeMsg], "");
+
     const fee = (0, stargate_1.calculateFee)(Math.round(gasEstimation * 1.3), GasPrice.fromString(
-      `${this.chainInfo.feeCurrencies[0].gasPriceStep?.low ?? 0}uwhale`
+      `${this.chainInfo.feeCurrencies[0].gasPriceStep?.low ?? 0}uosmo`
     ));
 
-  const { accountNumber, sequence } = await this.client.getSequence(this.address);
+    const { accountNumber, sequence } = await this.client.getSequence(this.address);
 
-  const signerData = {
-    accountNumber: accountNumber,
-    sequence: sequence,
-    chainId: this.chainInfo.chainId,
-  }
+    const signerData = {
+      accountNumber: accountNumber,
+      sequence: sequence,
+      chainId: this.chainInfo.chainId,
+    }
 
-  const txRaw = await this.client.sign(this.address, [storeCodeMsg], fee, "", signerData);
+    const txRaw = await this.client.sign(this.address, [storeCodeMsg], fee, "", signerData);
 
-  const txBytes = tx_3.TxRaw.encode(txRaw).finish();
+    const txBytes = tx_3.TxRaw.encode(txRaw).finish();
 
-  const result = await this.client.broadcastTx(txBytes, this.client.broadcastTimeoutMs, this.client.broadcastPollIntervalMs);
+    try {
+      const result = await this.client.broadcastTx(txBytes);
+    } catch (e) {
+      console.log(e)
+    } 
 
-  return {
-    logs: stargate_1.logs.parseRawLog(result.rawLog),
-    height: result.height,
-    transactionHash: result.transactionHash,
-    events: result.events,
-    gasWanted: result.gasWanted,
-    gasUsed: result.gasUsed,
-}; 
+    return {
+      logs: stargate_1.logs.parseRawLog(result.rawLog),
+      height: result.height,
+      transactionHash: result.transactionHash,
+      events: result.events,
+      gasWanted: result.gasWanted,
+      gasUsed: result.gasUsed,
+    };
   }
 
   public async bank(denom: string) {
@@ -138,7 +142,7 @@ export class TerraStationWalletClient extends WalletClient {
     public chainInfo: ChainInfo, public furnaceContractAddress: string,
   ) {
     super();
-    this.disconnect = async () => {disconnect};
+    this.disconnect = async () => { disconnect };
   }
 
   public getBalance = async (denom: string) => {
@@ -146,22 +150,22 @@ export class TerraStationWalletClient extends WalletClient {
       const coins = await this.lcdClient.bank.balance(this.address);
 
       const coin = coins[0].get(denom);
-  
+
       return coin!.amount.toNumber();
-    } catch(e) {
+    } catch (e) {
       console.log(`Error getting ${denom} balance: ${e}`);
       return 0;
     }
   }
 
-  // This method hasn't been tested yet because Terra Station won't allow connecting to local migaloo.
+  // This method hasn't been tested yet because Terra Station won't allow connecting to local osmo.
   async burn(amount: number): Promise<TxResult> {
 
     const executeMsg = new MsgExecuteContract(
       this.address,
       this.furnaceContractAddress,
-      { burn: {} }, 
-      { uwhale: amount * uwhalePerWhale }, 
+      { burn: {} },
+      { uwhale: amount * uwhalePerWhale },
     );
 
     const transactionMsg = {
@@ -170,8 +174,8 @@ export class TerraStationWalletClient extends WalletClient {
     };
 
     const txResult = await this.connectedWallet.post(transactionMsg);
-    
-    return txResult;    
+
+    return txResult;
   }
 
   async bank(denom: string): Promise<number> {

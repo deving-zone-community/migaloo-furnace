@@ -28,7 +28,7 @@ export const useTerraStation = (onError: (e: unknown) => void) => {
           gasPrices: {
             uwhale: chainInfo.feeCurrencies[0].gasPriceStep?.low ?? 0,
           },
-          prefix: "migaloo",
+          prefix: "osmo",
         },
       });
 
@@ -40,8 +40,8 @@ export const useTerraStation = (onError: (e: unknown) => void) => {
         throw new Error("Failed to get connected wallet");
       }
 
-      if (address == undefined || !address.startsWith("migaloo")) {
-        throw new Error("Failed to get migaloo address from wallet");
+      if (address == undefined || !address.startsWith("osmo")) {
+        throw new Error("Failed to get osmo address from wallet");
       }
 
       const terraStationWalletClient = new TerraStationWalletClient(

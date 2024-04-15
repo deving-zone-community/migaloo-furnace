@@ -12,8 +12,8 @@ import EllipticalShadow from "./EllipticalShadow";
 import Background from "../shared/Background";
 import Navbar from "../navbar/Navbar";
 import { MouseEventHandler, ReactNode } from "react";
-import { useWhaleBurned } from "@/hooks/useWhaleBurned";
-import { useWhaleSupply } from "@/hooks/useWhaleSupply";
+import { useFuelBurned } from "@/hooks/useFuelBurned";
+import { useFuelSupply } from "@/hooks/useFuelSupply";
 
 type DefaultBurnProps = {
   buttonText: string;
@@ -28,8 +28,8 @@ const BurnPage = ({
                     isDisabled,
                     children,
                   }: DefaultBurnProps) => {
-  const {totalBurned} = useWhaleBurned();
-  const totalWhaleSupply = useWhaleSupply();
+  const {totalBurned} = useFuelBurned();
+  const totalFuelSupply = useFuelSupply();
 
   return (
       <Background>
@@ -40,10 +40,10 @@ const BurnPage = ({
             <EllipticalShadow>
               <VStack flex={4}>
                 <Text color="brandGreen" fontWeight={500} fontSize={20}>
-                  WHALE Burner
+                  BURN THE LAB DOWN
                 </Text>
                 <Heading fontWeight={900} color="white" fontSize={72}>
-                  The Furnace
+                  Mad Scientists
                 </Heading>
                 <Box width={500} minHeight="255px">
                   {children}
@@ -68,7 +68,7 @@ const BurnPage = ({
                   borderRadius="20px">
                 <Flex>
                   <Heading flex={13} color="white" fontSize="30px">
-                    Total WHALE Burned:
+                    Total LAB Burned:
                   </Heading>
                   <Spacer />
                   <Box flex={6} minWidth="230px" minHeight="100%" >
@@ -84,7 +84,7 @@ const BurnPage = ({
                 </Flex>
                 <Flex>
                   <Heading flex={13} color="white" fontSize="30px">
-                    WHALE Supply:
+                    LAB Supply:
                   </Heading>
                   <Spacer />
                   <Box flex={6} minWidth="230px" minHeight="100%">
@@ -92,8 +92,8 @@ const BurnPage = ({
                         color="brandGreen"
                         fontSize="30px"
                         textAlign="end">
-                      {totalWhaleSupply != null
-                          ? totalWhaleSupply.toLocaleString()
+                      {totalFuelSupply != null
+                          ? totalFuelSupply.toLocaleString()
                           : "-"}
                     </Heading>
                   </Box>

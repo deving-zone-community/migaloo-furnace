@@ -15,7 +15,7 @@ export const useWhaleBalance = () => {
   useEffect(() => {
     const getBalance = async () => {
       if (walletClient != null) {
-        const newBalance = await walletClient!.getWhaleBalance();
+        const newBalance = await walletClient!.getFuelBalance();
         setWhaleBalance(newBalance);
       } else {
         setWhaleBalance(0);

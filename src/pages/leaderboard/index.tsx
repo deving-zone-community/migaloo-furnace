@@ -10,14 +10,14 @@ import { walletClientState } from "@/components/shared/state";
 import { useRecoilValue } from "recoil";
 import {kPageEntries} from "@/components/shared/constants";
 import {useGetAllSortedEntries} from "@/hooks/useGetAllSortedEntries";
-import {useWhaleBurned} from "@/hooks/useWhaleBurned";
+import {useFuelBurned} from "@/hooks/useFuelBurned";
 
 export default function LeaderboardPage() {
   const userRankData = useUserRank();
 
   const {data: totalBurnersData} = useGetAllSortedEntries();
 
-  const {communityBurn, foundationBurn, totalBurned}= useWhaleBurned();
+  const {communityBurn, foundationBurn, totalBurned}= useFuelBurned();
 
   const ashBalance = useAshBalance();
 
@@ -99,7 +99,7 @@ export default function LeaderboardPage() {
                         dataColor="brandGreen"
                     />
                     <DetailsField
-                        label="My Ash Tokens"
+                        label="My $ashLAB"
                         data={walletClient != null ? ashBalance.toFixed(3) : "-"}
                     />
                   </DetailsDisplay>

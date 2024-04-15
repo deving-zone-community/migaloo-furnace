@@ -2,7 +2,7 @@ import {useMemo} from "react";
 import {useGetAllSortedEntries, useGetSortedEntriesWithoutFoundation} from "@/hooks/useGetAllSortedEntries";
 import {uwhalePerWhale} from "@/components/shared/constants";
 
-export const useWhaleBurned = () => {
+export const useFuelBurned = () => {
     const {data: allEntries} = useGetAllSortedEntries();
     const {data: entriesWithoutFoundation} = useGetSortedEntriesWithoutFoundation();
 

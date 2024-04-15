@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.6.1",
-    "react-query": "^3.39.1",
     "@cosmjs/cosmwasm-stargate": "^0.30.1",
     "@cosmjs/math": "^0.30.1",
     "@cosmjs/stargate": "^0.30.1",
@@ -29,9 +28,11 @@
     "eslint-config-next": "13.4.4",
     "framer-motion": "^10.12.22",
     "next": "13.4.4",
+    "osmojs": "^16.10.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-query": "^3.39.1",
     "recoil": "^0.7.7",
     "typescript": "5.1.6"
   },

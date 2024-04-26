@@ -87,7 +87,7 @@ const WalletInfo = () => {
 
       if (
         typeof furnaceContractAddress !== "string" ||
-        !furnaceContractAddress.startsWith("osmo1")
+        !furnaceContractAddress.startsWith("chihuahua1")
       ) {
         throw new Error("furnace_contract_address is incorrectly formatted");
       }
@@ -99,7 +99,7 @@ const WalletInfo = () => {
 
       if (!toast.isActive(id)) {
         toast({
-          description: "Your config.json file is incorrectly formatted.",
+          description: ".json file is incorrectly formatted.",
           id: id,
           duration: 2000,
           position: "top",
@@ -118,7 +118,7 @@ const WalletInfo = () => {
         fontFamily={`'Lato', sans-serif`}
         padding={2}
       >
-        {`${balance.toFixed(3)} LAB`}
+        {`${balance.toFixed(3)} HUAHUA`}
       </Text>
       <HStack>
         <Box paddingLeft={2}>

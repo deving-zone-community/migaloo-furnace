@@ -99,7 +99,7 @@ export default function LeaderboardPage() {
                         dataColor="brandGreen"
                     />
                     <DetailsField
-                        label="My $ashLAB"
+                        label="My $ashHuahua"
                         data={walletClient != null ? ashBalance.toFixed(3) : "-"}
                     />
                   </DetailsDisplay>

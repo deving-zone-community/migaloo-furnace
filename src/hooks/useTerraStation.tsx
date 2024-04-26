@@ -40,7 +40,7 @@ export const useTerraStation = (onError: (e: unknown) => void) => {
         throw new Error("Failed to get connected wallet");
       }
 
-      if (address == undefined || !address.startsWith("osmo")) {
+      if (address == undefined || !address.startsWith("chihuahua1")) {
         throw new Error("Failed to get osmo address from wallet");
       }
 

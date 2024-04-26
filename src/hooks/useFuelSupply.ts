@@ -18,7 +18,7 @@ export async function fetchTotalSupply(): Promise<number | null> {
         );
         const data = await response.json();
 
-        const uwhale = data.supply.find((item: Token) => item.denom === 'factory/osmo17fel472lgzs87ekt9dvk0zqyh5gl80sqp4sk4n/LAB');
+        const uwhale = data.supply.find((item: Token) => item.denom === 'uhuahua');
         return uwhale ? (uwhale.amount/uwhalePerWhale) : null;
     } catch (error) {
         console.error('Error fetching data:', error);

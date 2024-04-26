@@ -88,7 +88,7 @@ export default function Home() {
     case BurningState.userInput:
       return (
         <BurnPage
-          buttonText="Burn LAB"
+          buttonText="Burn HUAHUA"
           onClick={onBurnWhales}
           isDisabled={!isConnected}
         >
@@ -99,7 +99,7 @@ export default function Home() {
         </BurnPage>
       );
     case BurningState.burning:
-      return <BurnPage buttonText="Burning the LAB..." />;
+      return <BurnPage buttonText="Making some Hot Dogs" />;
     case BurningState.success:
       return (
         <BurnPage buttonText="Back to Burn" onClick={onClickBack}>

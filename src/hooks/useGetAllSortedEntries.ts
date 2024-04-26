@@ -27,7 +27,7 @@ const fetchAllSortedEntries = async (client: CosmWasmClient | undefined, isFound
   }
   let allEntries: any[]
 
-  let response = await client.queryContractSmart(chain.furnace_contract_address, { leaderboard: { fuel_denom: "factory/osmo17fel472lgzs87ekt9dvk0zqyh5gl80sqp4sk4n/LAB", limit: 30 } });
+  let response = await client.queryContractSmart(chain.furnace_contract_address, { leaderboard: { fuel_denom: "uhuahua", limit: 30 } });
   console.log(response)
 
   allEntries = [...response["leaderboard"]]
@@ -35,7 +35,7 @@ const fetchAllSortedEntries = async (client: CosmWasmClient | undefined, isFound
   while (response.length === 30) {
     response = await client.queryContractSmart(chain.furnace_contract_address, {
       leaderboard: {
-        fuel_denom: "factory/osmo17fel472lgzs87ekt9dvk0zqyh5gl80sqp4sk4n/LAB",
+        fuel_denom: "uhuahua",
         start_after: response[29][0],
         limit: 30
       }

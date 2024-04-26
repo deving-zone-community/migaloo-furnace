@@ -9,7 +9,7 @@ const Background = ({ children }: BackgroundProps) => {
     <>
       <div
         style={{
-          backgroundImage: `url(images/bg.gif)`,
+          backgroundImage: `url(images/bg.png)`,
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'auto 100%',

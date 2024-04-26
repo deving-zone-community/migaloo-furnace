@@ -27,15 +27,15 @@ const SuccessDetails = ({ whaleBurned }: SuccessDetailsProps) => {
             Success!
           </Text>
           <SuccessDetailField
-            label="LAB Burned"
+            label="HUAHUA Burned"
+            value={(whaleBurned * 0.99).toFixed(3)}
+          />
+          <SuccessDetailField
+            label="ashHuahua Received"
             value={whaleBurned.toFixed(3)}
           />
           <SuccessDetailField
-            label="ashLAB Received"
-            value={whaleBurned.toFixed(3)}
-          />
-          <SuccessDetailField
-            label="Current ashLAB Balance"
+            label="Current ashHuahua Balance"
             value={(ashBalance).toFixed(3)}
           />
         </VStack>

@@ -22,12 +22,12 @@ export abstract class WalletClient {
   public abstract furnaceContractAddress: string;
   public abstract chainInfo: ChainInfo;
 
-  public get ashDenom() { return `factory/osmo1svj5kd8kzj7xxtrd6ftjk0856ffpyj4egz7f9pd9dge5wr4kwansmefq07/lab.ash` };
+  public get ashDenom() { return `factory/chihuahua1hplyuj2hzxd75q8686g9vm3uzrrny9ggvt8aza2csupgdp98vg2sp0e3h0/uhuahua.ash` };
 
   abstract getBalance(denom: String): Promise<number>
 
   public async getFuelBalance(): Promise<number> {
-    const ufuelBalance = await this.getBalance("factory/osmo17fel472lgzs87ekt9dvk0zqyh5gl80sqp4sk4n/LAB");
+    const ufuelBalance = await this.getBalance("uhuahua");
     return ufuelBalance / uwhalePerWhale;
   }
 
@@ -78,7 +78,7 @@ export class CosmWasmWalletClient extends WalletClient {
     // when it tries to get and then add the property chainId to the CosmWasmClient to construct
     // the signer data. Passing in the signer data directly bypasses this error. 
 
-    const funds = coins(amount * uwhalePerWhale, "factory/osmo17fel472lgzs87ekt9dvk0zqyh5gl80sqp4sk4n/LAB");
+    const funds = coins(amount * uwhalePerWhale, "uhuahua");
 
     const burnMsg = { burn: {} };
     const storeCodeMsg = {

@@ -33,7 +33,7 @@ export const useKeplrInterface = (
         const client = await SigningCosmWasmClient.connectWithSigner(chainInfo.rpc, offlineSigner, options)
         const address = accounts[0].address;
 
-        if (address == undefined || !address.startsWith("osmo")) {
+        if (address == undefined || !address.startsWith("chihuahua1")) {
           throw new Error("Failed to get osmo address from wallet");
         }
 

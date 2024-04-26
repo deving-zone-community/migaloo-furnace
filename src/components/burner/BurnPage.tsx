@@ -40,10 +40,10 @@ const BurnPage = ({
             <EllipticalShadow>
               <VStack flex={4}>
                 <Text color="brandGreen" fontWeight={500} fontSize={20}>
-                  BURN THE LAB DOWN
+                  The Hot Dog Stand
                 </Text>
                 <Heading fontWeight={900} color="white" fontSize={72}>
-                  Mad Scientists
+                  Let's cook
                 </Heading>
                 <Box width={500} minHeight="255px">
                   {children}
@@ -68,7 +68,7 @@ const BurnPage = ({
                   borderRadius="20px">
                 <Flex>
                   <Heading flex={13} color="white" fontSize="30px">
-                    Total LAB Burned:
+                    Total HUAHUA Burned:
                   </Heading>
                   <Spacer />
                   <Box flex={6} minWidth="230px" minHeight="100%" >
@@ -84,7 +84,7 @@ const BurnPage = ({
                 </Flex>
                 <Flex>
                   <Heading flex={13} color="white" fontSize="30px">
-                    LAB Supply:
+                    HUAHUA Supply:
                   </Heading>
                   <Spacer />
                   <Box flex={6} minWidth="230px" minHeight="100%">

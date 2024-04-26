@@ -43,7 +43,7 @@ const BurnPage = ({
                   The Hot Dog Stand
                 </Text>
                 <Heading fontWeight={900} color="white" fontSize={72}>
-                  Let's cook
+                  Get cooking
                 </Heading>
                 <Box width={500} minHeight="255px">
                   {children}

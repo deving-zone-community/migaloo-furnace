@@ -90,7 +90,7 @@ const BurnPage = ({
                   <Box flex={6} minWidth="230px" minHeight="100%">
                     <Heading
                         color="brandGreen"
-                        fontSize="30px"
+                        fontSize="20px"
                         textAlign="end">
                       {totalFuelSupply != null
                           ? totalFuelSupply.toLocaleString()
